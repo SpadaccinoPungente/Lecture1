@@ -12,15 +12,17 @@ class Fattura:
     numero_fattura: str
     data: date
 
-#VERSIONE SPAZIATA MEGLIO
+    # VERSIONE SPAZIATA MEGLIO (Versione principale attiva)
     def genera_fattura(self) -> str:
         """Genera il testo della fattura."""
         linee = [
             "=" * 60,
+            # Intestazione della fattura (data e numero)
             f"FATTURA N. {self.numero_fattura}".center(60),
             f"Data: {self.data.strftime('%d/%m/%Y')}".center(60),
             "=" * 60,
             "",
+            # Dettagli del cliente
             f"Cliente: {self.ordine.cliente.nome}",
             f"Email: {self.ordine.cliente.mail}",
             f"Categoria: {self.ordine.cliente.categoria}",
@@ -30,6 +32,8 @@ class Fattura:
             "-" * 60,
         ]
 
+        # L'utilizzo di enumerate restituisce 2 valori ad ogni ciclo: l'indice e l'oggetto associato (riga dell'ordine).
+        # In questo caso passiamo '1' come secondo argomento per far partire l'indice da 1 invece che da 0.
         for i, riga in enumerate(self.ordine.righe, 1):
             linee.append(
                 f"{i}. {riga.prodotto.name:<22} "
@@ -49,10 +53,10 @@ class Fattura:
 
         return "\n".join(linee)
 
-#VERSIONE SCRITTA IN CLASSE
-    # def genera_fattura(self):
+    # VERSIONE SCRITTA IN CLASSE (Mantenuta come riferimento, commentata)
+    # def genera_fattura_base(self):
     #     linee = [
-    #         f"="*60,
+    #         f"=" * 60,
     #         f"Fattura no. {self.numero_fattura} del {self.data}",
     #         f"=" * 60,
     #         f"Cliente: {self.ordine.cliente.nome}",
@@ -69,7 +73,7 @@ class Fattura:
     #             f"Tot. {riga.totale_riga()}"
     #         )
     #     linee.extend([
-    #         f"-"*60,
+    #         f"-" * 60,
     #         f"Totale Netto: { self.ordine.totale_netto()}",
     #         f"IVA(22%):{self.ordine.totale_netto()*0.22}",
     #         f"Totale Lordo: {self.ordine.totale_lordo(0.22)}",
@@ -80,23 +84,26 @@ class Fattura:
     #     return "\n".join(linee)
 
 
-
 def _test_modulo():
-
     p1 = ProdottoRecord("Laptop", 1200.0)
     p2 = ProdottoRecord("Mouse", 20.0)
     p3 = ProdottoRecord("Tablet", 600.0)
 
-
     cliente = ClienteRecord("Mario Bianchi", "mario.bianchi@polito.it", "Gold")
-    ordine = Ordine(righe = [
-        RigaOrdine(p1, 1),
-        RigaOrdine(p2, 5),
-        RigaOrdine(p3, 2)
-    ], cliente = cliente)
+
+    ordine = Ordine(
+        righe=[
+            RigaOrdine(p1, 1),
+            RigaOrdine(p2, 5),
+            RigaOrdine(p3, 2)
+        ],
+        cliente=cliente
+    )
+
     fattura = Fattura(ordine, "2026/01", date.today())
 
     print(fattura.genera_fattura())
+
 
 if __name__ == "__main__":
     _test_modulo()
