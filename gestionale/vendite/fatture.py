@@ -32,7 +32,7 @@ class Fattura:
             "-" * 60,
         ]
 
-        # L'utilizzo di enumerate restituisce 2 valori ad ogni ciclo: l'indice e l'oggetto associato (riga dell'ordine).
+        # L'utilizzo di enumerate restituisce 2 valori a ogni ciclo: l'indice e l'oggetto associato (riga dell'ordine).
         # In questo caso passiamo '1' come secondo argomento per far partire l'indice da 1 invece che da 0.
         for i, riga in enumerate(self.ordine.righe, 1):
             linee.append(

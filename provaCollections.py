@@ -3,7 +3,7 @@ from collections import Counter, deque # Aggiunto deque dai tuoi appunti
 
 from gestionale.core.clienti import ClienteRecord
 from gestionale.core.prodotti import ProdottoRecord
-from gestionale.vendite.ordini import Ordine
+from gestionale.vendite.ordini import Ordine, RigaOrdine
 
 # --- LISTE ---
 p1 = ProdottoRecord("Laptop", 1200.0)
@@ -318,4 +318,24 @@ ordine_corrente = coda_ordini.popleft()
 print(f"Sto preparando l'ordine: {ordine_corrente['prodotto']}")
 
 # Il prossimo sarà l'ordine 102
+
+# 16/03
+
+# Deque
+
+coda_ordini = deque()
+
+for i in range(1, 10):
+    cliente = ClienteRecord(f"Cliente {i}", f"cliente{i}@polito.it", "Gold")
+    prodotto = ProdottoRecord(f"Prodotto {i}", 100.0 * i)
+    ordine = Ordine([RigaOrdine(prodotto, 1)], cliente)
+    coda_ordini.append(ordine)
+
+print(f"Ordini in coda: {len(coda_ordini)}")
+
+while coda_ordini: # while su iterable fa ciclare fin quando esso è pieno!!
+    ordine_corrente = coda_ordini.popleft() # dà l'elemento che è stato aggiunto per primo
+    print(f"Sto gestendo l'ordine del cliente {ordine_corrente.cliente}")
+
+print("Ho processato tutti gli ordini.")
 

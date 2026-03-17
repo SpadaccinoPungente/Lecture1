@@ -64,7 +64,7 @@ class OrdineConSconto(Ordine):
         # ATTENZIONE: Il metodo totale_lordo() definito nella classe padre richiede l'argomento 'aliquota_iva'.
         # Scritto così (sia dal prof che nei tuoi appunti) genererà un TypeError quando chiamato.
         # Dovrebbe essere ad es: self.totale_lordo(0.22) * (1 - self.sconto_percentuale)
-        return self.totale_lordo() * (1 - self.sconto_percentuale)
+        return self.totale_lordo(0.22) * (1 - self.sconto_percentuale)
 
     def totale_netto(self):
         # L'icona del "bersaglio" a margine nel tuo IDE (es. PyCharm o VSCode) indica gli OVERRIDE:
