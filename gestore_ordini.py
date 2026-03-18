@@ -7,7 +7,8 @@
 from collections import deque, Counter, defaultdict
 
 from gestionale.core.clienti import ClienteRecord
-from gestionale.vendite.ordini import Ordine
+from gestionale.core.prodotti import ProdottoRecord
+from gestionale.vendite.ordini import Ordine, RigaOrdine
 
 
 class GestoreOrdini:
@@ -94,8 +95,37 @@ class GestoreOrdini:
             print(f"{cat}: {fatturato}")
 
 def test_modulo():
-    # copiare da repo
-    pass
+    sistema = GestoreOrdini()
+
+    ordini = [
+        Ordine([RigaOrdine(ProdottoRecord("Laptop", 1200.0), 1),
+                RigaOrdine(ProdottoRecord("Mouse", 10.0), 3)],
+               ClienteRecord("Mario Rossi", "mario@mail.it", "Gold")),
+        Ordine([RigaOrdine(ProdottoRecord("Laptop", 1200.0), 1),
+                RigaOrdine(ProdottoRecord("Mouse", 10.0), 2),
+                RigaOrdine(ProdottoRecord("Tablet", 500.0), 1),
+                RigaOrdine(ProdottoRecord("Cuffie", 250.0), 3)],
+               ClienteRecord("Fulvio Bianchi", "bianchi@gmail.com", "Gold")),
+        Ordine([
+            RigaOrdine(ProdottoRecord("Laptop", 1200.0), 2),
+            RigaOrdine(ProdottoRecord("Mouse", 10.0), 2)],
+            ClienteRecord("Giuseppe Averta", "giuseppe.averta@polito.it", "Silver")),
+        Ordine([
+            RigaOrdine(ProdottoRecord("Tablet", 900.0), 1),
+            RigaOrdine(ProdottoRecord("Cuffie", 250.0), 3)],
+            ClienteRecord("Carlo Masone", "carlo@mail.it", "Gold")),
+        Ordine([
+            RigaOrdine(ProdottoRecord("Laptop", 1200.0), 1),
+            RigaOrdine(ProdottoRecord("Mouse", 10.0), 3)],
+            ClienteRecord("Francesca Pistilli", "francesca@gmail.com", "Bronze"))
+    ]
+
+    for o in ordini:
+        sistema.add_ordine(o)
+
+    sistema.processa_tutti_ordini()
+
+    sistema.stampa_riepilogo()
 
 if __name__ == "__main__":
     test_modulo()
