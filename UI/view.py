@@ -10,6 +10,8 @@ class View:
         self._page.horizontal_alignment = "CENTER"
         self._page.theme_mode = ft.ThemeMode.LIGHT
         self.update_page()
+        # In teoria dovremmo definire tutte le variabili di classe qui
+        # ma in Python non è necessario
 
     def carica_interfaccia(self):
         # --- RIGA 1: Dati del Prodotto ---

@@ -1,5 +1,5 @@
 import flet as ft
-from gestionale.gestoreOrdini import GestoreOrdini
+from UI.gestoreOrdini import GestoreOrdini
 
 
 class Controller:
